@@ -3,7 +3,7 @@ Redditalytics
 
 Karma Whoring 2.0
 
-Tech
+Todo
 -
 * Set up Sinatra
 * Make a Gemfile
