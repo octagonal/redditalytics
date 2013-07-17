@@ -9,27 +9,29 @@ parsed = JSON.parse(file)
 acc_up = []
 acc_downs = []
 parsed["data"]["children"].each do |child|
-	temp_array = []
-	if child["data"]["title"] == nil
-		temp_array << child["data"]["body"]
+	data_node = []
+	data_hash = child["data"]
+	if data_hash["title"] == nil
+		data_node << data_hash["body"]
 	else
-		temp_array << child["data"]["title"]
+		data_node << data_hash["title"]
 	end
 
-	#p child["data"]["ups"]
+	data_node << data_hash["ups"]
+	acc_up << data_node.dup
 
-	temp_array << child["data"]["ups"]
-	acc_up << temp_array.dup
+	#Take away the upvote string
+	data_node.pop
 
-	temp_array.pop
+	#... And add the downvote string
+	data_node << data_hash["downs"]
 
-	temp_array << child["data"]["downs"]
-	acc_downs << temp_array
-	temp_array = []
+	acc_downs << data_node
+	data_node = []
 end
 
+#Make it chronological
 acc_up.reverse!
 acc_downs.reverse!
+
 p acc_up
-puts "\n"
-p acc_downs
