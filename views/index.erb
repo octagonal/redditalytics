@@ -4,8 +4,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="stylesheet" href="css/normalize.css" />
-	  	<link rel="stylesheet" href="css/foundation.css" />
+		<link rel="stylesheet" href="/css/normalize.css" />
+	  	<link rel="stylesheet" href="/css/foundation.css" />
 		<script src="/js/vendor/custom.modernizr.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
@@ -107,17 +107,17 @@
 				</div>
 				<div class="large-3 columns">
 					<select class="" id="customDropdown" name="sort">
-						<option value="top">top</input>
-						<option value="new">newest</input>
-						<option value="hot">hottest</input>
-						<option value="controversial">most controversial</input>
+						<option value="<%= Sort.top %>">top</input>
+						<option value="<%= Sort.newsort %>">newest</input>
+						<option value="<%= Sort.hot %>">hottest</input>
+						<option value="<%= Sort.controversial %>">most controversial</input>
 					</select>
 				</div>
 				<div class="large-3 columns">
 					<select class="" name="type">
-						<option value="link">links</input>
-						<option value="comment">comments</input>
-						<option value="overview">links and comments</input>
+						<option value="<%= Type.submitted %>">submitted</input>
+						<option value="<%= Type.comments %>">comments</input>
+						<option value="<%= Type.overview %>">links and comments</input>
 					</select>
 				</div>
 			</div> <!--row-->
