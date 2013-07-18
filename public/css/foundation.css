@@ -80,6 +80,13 @@ textarea {
   height: auto;
   min-height: 50px; }
 
+input.redditor {
+  vertical-align: middle;
+  min-height: 50px;
+  height: auto;
+  padding: 0.6em;
+}
+
 select {
   width: 100%; }
 
