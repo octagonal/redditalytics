@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="css/normalize.css" />
+	  	<link rel="stylesheet" href="css/foundation.css" />
+		<script src="/js/vendor/custom.modernizr.js"></script>
+		<style>
+			body{
+				box-sizing:border-box;
+				margin-top: 1em;
+			}
+			form.custom .custom.dropdown {
+				vertical-align: middle;
+				text-align: center;
+				height: 3.6125em;
+				padding:0.6em;
+			}
+			form.custom .custom.dropdown .selector {
+				height: 3.5125em;
+			}
+			form.custom .custom.dropdown ul li {
+				padding: 1em;
+			}
+			input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+				padding: 1.1em;
+			}
+			textarea {
+			    resize: none;
+			}
+			.postfix {
+				padding-top: 0.6em;
+				height: 3.550em;
+				border:none;
+			}
+		</style>
+	</head>
+	<body>
+
+		<form class="custom" action="#">
+			<div class="row">
+				<div class="large-3 columns">
+					<div class="row collapse">
+						<div class="small-9 columns">
+							<textarea placeholder="redditor" name="redditor"></textarea>
+						</div>
+						<div class="small-3 columns">
+							<span class="postfix radius">'s</span>
+						</div>
+					</div>
+				</div>
+				<div class="large-3 columns">
+					<select class="" id="customDropdown" name="sorting">
+						<option value="top">top</input>
+						<option value="new">newest</input>
+						<option value="hot">hottest</input>
+						<option value="controversial">most controversial</input>
+					</select>
+				</div>
+				<div class="large-3 columns">
+					<select class="" name="range">
+						<option value="25">25</input>
+						<option value="new">50</input>
+						<option value="hot">75</input>
+						<option value="hot">100</input>
+					</select>
+				</div>
+				<div class="large-3 columns">
+					<select class="" name="type">
+						<option value="links">links</input>
+						<option value="comments">comments</input>
+						<option value="links_comments">links and comments</input>
+					</select>
+				</div>
+			</div> <!--row-->
+			<div class="row">
+				<div class="column">
+					<a href="#" class="large button expand">Generate</a>
+				</div>
+			</div>
+		</form>
+		<script>
+		  document.write('<script src=/js/vendor/'
+		    + ('__proto__' in {} ? 'zepto' : 'jquery')
+		    + '.js><\/script>');
+		</script>
+		<script src="/js/foundation.min.js"></script>
+		<script>
+		  $(document).foundation();
+		</script>
+	</body>
+</html>
