@@ -1,36 +1,6 @@
+require 'ap'
 require 'rest-client'
-require 'sinatra'
-require "json"
-require "ap"
-
-get '/' do
-	erb :post
-end
-
-get '/:user' do
-	user = Redditor.new(params[:user],"new",10,"comment")
-	@ups = user.results[0]
-	@downs = user.results[1]
-	@user = params[:user]
-	erb :index
-end
-
-post '/' do
-	user = Redditor.new(params[:user],params[:sort],params[:limit],params[:type])
-
-	@ups = user.results[0]
-	@downs = user.results[1]
-	@sort = user.sort
-	@limit = user.limit
-	if user.type == "overview"
-		@type = "submission"
-	else
-		@type = user.type
-	end
-	@user = params[:user]
-
-	erb :index
-end
+require 'json'
 
 class Redditor
 	@@base_url = "http://www.reddit.com/"
@@ -63,7 +33,7 @@ class Redditor
 				data_node << data_hash["body"]
 			when "link"
 				data_node << data_hash["title"]
-			when "overview"
+			when "both"
 				if data_hash["title"] == nil
 					data_node << data_hash["body"]
 				else
@@ -108,7 +78,7 @@ class Redditor
 			formed_url << "comments"
 		when "link"
 			formed_url << "submitted"
-		when "overview"
+		when "both"
 			formed_url << "overview"
 		end
 
@@ -126,3 +96,15 @@ class Redditor
 		parsed
 	end
 end
+
+=begin
+
+→ /user/username/overview
+→ /user/username/submitted
+→ /user/username/comments
+→ /user/username/liked
+→ /user/username/disliked
+→ /user/username/hidden
+→ /user/username/saved
+
+=end
