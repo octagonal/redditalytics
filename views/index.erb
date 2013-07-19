@@ -10,10 +10,12 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
 			$(function () {
+				a = document.getElementsByTagName('<%= @element %>');
+				a[0].setAttribute("edition","first");
 		        $('#container').highcharts({
 		        	colors: ['#FF2400','#00308F'],
 		            title: {
-		                text: "<%= @user %>'s <%= @limit %> <%= @sort %> <%= @type %>s",
+		                text: "<%= @user %>'s <%= @limit %> <%= @sort %> <%= @type %>",
 		                x: -20 //center
 		            },
 		            xAxis: {
@@ -90,7 +92,7 @@
 				<div class="large-3 columns">
 					<div class="row collapse">
 						<div class="small-9 columns">
-							<textarea placeholder="redditor" name="user"></textarea>
+							<textarea placeholder="redditor" name="user"><%= @user %></textarea>
 						</div>
 						<div class="small-3 columns">
 							<span class="postfix radius">'s</span>
@@ -106,24 +108,24 @@
 					</select>
 				</div>
 				<div class="large-3 columns">
-					<select class="" id="customDropdown" name="sort">
-						<option value="<%= Sort.top %>">top</input>
-						<option value="<%= Sort.newsort %>">newest</input>
-						<option value="<%= Sort.hot %>">hottest</input>
-						<option value="<%= Sort.controversial %>">most controversial</input>
+					<select id="sort" id="customDropdown" name="sort">
+						<option <%= Sort.top %>>top</input>
+						<option <%= Sort.newsort %>>newest</input>
+						<option <%= Sort.hot %>>hottest</input>
+						<option <%= Sort.controversial %>>most controversial</input>
 					</select>
 				</div>
 				<div class="large-3 columns">
-					<select class="" name="type">
-						<option value="<%= Type.submitted %>">submitted</input>
-						<option value="<%= Type.comments %>">comments</input>
-						<option value="<%= Type.overview %>">links and comments</input>
+					<select id="type" name="type">
+						<option <%= Type.submitted %>>links</input>
+						<option <%= Type.comments %>>comments</input>
+						<option <%= Type.overview %>>links and comments</input>
 					</select>
 				</div>
-			</div> <!--row-->
+			</div>
 			<div class="row">
 				<div class="column">
-					<input type="submit" class="large button expand" value="Generate">
+					<input type="submit" class="large button expand" value="Generate graph">
 				</div>
 				<hr>
 			</div>

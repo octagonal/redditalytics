@@ -3,18 +3,18 @@ require 'sinatra'
 require "json"
 require "ap"
 
-#Set global variables
+#Set global variables for view
 configure do
   Sort = OpenStruct.new(
-    :hot => 'hot',
-    :newsort => 'new',
-    :top => 'top',
-    :controversial => 'controversial'
+    :hot => 'value="hot" id="hot"',
+    :newsort => 'value="new" id="new"',
+    :top => 'value="top" id="top"',
+    :controversial => 'value="controversial" id="controversial"'
   )
   Type = OpenStruct.new(
-    :submitted => 'submitted',
-    :comments => 'comments',
-    :overview => 'overview'
+    :submitted => 'value="submitted" id="submitted"',
+    :comments => 'value="comments" id="submitted"',
+    :overview => 'value="overview" id="overview"'
   )
 end
 
@@ -36,22 +36,23 @@ post '/' do
 	limit = "limit="
 	limit << params[:limit]
 
+	#All queries lead to the Reddit routing style now
 	redirect to("/user/#{params[:user]}/#{params[:type]}/?#{sort}&#{limit}")
 end
 
-get '/test/:user/:type/' do
-	sort = "?sort="
-	sort << params[:sort]
-	redirect to("/user/#{params[:user]}/#{params[:type]}/#{sort}")
-end
-
-get '/user/:user' do
-	redirect to("/user/#{params[:user]}/overview/?sort=new")
+#This is mainly a convenience route so users can simply replace reddit.com by redditalytics.com to get to a graph
+get '/user/:user/' do
+	sort = "sort="
+	if params[:sort]
+		sort << params[:sort]
+	else
+		sort << "new"
+	end
+	redirect to("/user/#{params[:user]}/overview/?#{sort}")
 end
 
 #This route is analogous to how Reddit routes pages
 get '/user/:user/:type/' do
-	#Set initial values, override if any custom ones are given
 	limit = 100
 	if params[:limit]
 		limit = params[:limit]
@@ -62,18 +63,16 @@ get '/user/:user/:type/' do
 		sort = params[:sort]
 	end
 
-	user = Redditor.new(params[:user],params[:type],params[:sort],limit)
+	user = Redditor.new(params[:user],params[:type],sort,limit)
 
 	@ups = user.results[0]
 	@downs = user.results[1]
-	@sort = user.sort
+
+	@sort = user.sort_pretty
 	@limit = user.limit
-	if user.type == "overview"
-		@type = "submission"
-	else
-		@type = user.type
-	end
 	@user = params[:user]
+	@type = user.type_pretty
+	@element = "div"
 
 	erb :index
 end
@@ -82,17 +81,37 @@ class Redditor
 	@@base_url = "http://www.reddit.com/"
 	@@user_agent = "Redditalytics alpha [/u/pegasus_527, github/octagonal/redditalytics]"
 	attr_reader :user, :sort, :limit, :type, :results
+	attr_reader :sort_pretty, :type_pretty
 
-	# sort 	=> hot, new, top, controversial
-	# limit => 0..100
-	# type 	=> submitted, comments, overview (all
-	# user 	=> String
 	def initialize(user,type,sort,limit=100)
 		@user = user
 		@sort = sort
 		@limit = limit
 		@type = type
-		puts "#{user}#{sort}#{limit}#{type}"
+		beautify
+		puts "#{user}#{sort_pretty}#{limit}#{type_pretty}"
+	end
+
+	def beautify
+		case @type
+		when "comments"
+			@type_pretty = "comments"
+		when "submitted"
+			@type_pretty = "submissions"
+		when "overview"
+			@type_pretty = "links and comments"
+		end
+
+		case @sort
+		when "hot"
+			@sort_pretty = "hottest"
+		when "new"
+			@sort_pretty = "newest"
+		when "top"
+			@sort_pretty = "top"
+		when "controversial"
+			@sort_pretty = "most controversial"
+		end
 	end
 
 	def results
@@ -134,8 +153,6 @@ class Redditor
 			acc_downs << data_node
 			data_node = []
 		end
-
-		ap acc_up
 
 		#Make it chronological
 		acc_up.reverse!
