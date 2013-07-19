@@ -57,8 +57,8 @@ get '/user/:user/:type/' do
 
 	user = Redditor.new(params[:user],params[:type],sort,limit)
 
-	@ups = user.results[0]
-	@downs = user.results[1]
+	@range = user.results[0]
+	@average = user.results[1]
 
 	@sort_pretty = user.sort_pretty
 	@sort = user.sort
@@ -84,7 +84,7 @@ class Redditor
 		@limit = limit
 		@type = type
 		beautify
-		puts "#{user}#{sort_pretty}#{limit}#{type_pretty}"
+		#puts "#{user}#{sort_pretty}#{limit}#{type_pretty}"
 	end
 
 	def beautify
@@ -92,9 +92,9 @@ class Redditor
 		when "comments"
 			@type_pretty = "comments"
 		when "submitted"
-			@type_pretty = "submissions"
+			@type_pretty = "posts"
 		when "overview"
-			@type_pretty = "links and comments"
+			@type_pretty = "posts and comments"
 		end
 
 		case @sort
@@ -118,8 +118,8 @@ class Redditor
 		file = get_url(file)
 		file = get_json(file)
 
-		acc_up = []
-		acc_downs = []
+		range = []
+		average = []
 		file["data"]["children"].each do |child|
 			data_node = []
 			data_hash = child["data"]
@@ -136,28 +136,30 @@ class Redditor
 				end
 			end
 
+			data_node << data_hash["downs"]*-1
 			data_node << data_hash["ups"]
-			acc_up << data_node.dup
+			average << data_node[2] + data_node[1]
+			data_node.flatten!
+			range << data_node
+			data_node = []
+			#acc_up << data_node.dup
 
 			#Take away the upvote string
-			data_node.pop
+			#data_node.pop
 
 			#... And add the downvote string
-			data_node << data_hash["downs"]
 
-			acc_downs << data_node
-			data_node = []
+			#acc_downs << data_node
+
 		end
 
 		#Make it chronological
-		acc_up.reverse!
-		acc_downs.reverse!
-		acc_downs.map! { |node|
-		collect = node[0],node[1]*-1
-		collect
-		}
+		average.reverse!
+		range.reverse!
 
-		[acc_up,acc_downs]
+		range = [range] + [average]
+		#ap range
+		range
 	end
 
 	private

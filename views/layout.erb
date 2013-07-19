@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="stylesheet" href="/css/normalize.css" />
 	  	<link rel="stylesheet" href="/css/foundation.css" />
+	  	<link rel="stylesheet" href="/css/fonts.css" type="text/css" charset="utf-8" />
 	  	<link rel="stylesheet" href="/css/main.css" />
 		<script src="/js/vendor/custom.modernizr.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -17,13 +18,17 @@
 		                text: "<%= @user %>'s <%= @limit %> <%= @sort_pretty %> <%= @type_pretty %>",
 		                x: -20 //center
 		            },
+		            chart: {
+		                zoomType: 'y'
+		            },
 		            xAxis: {
 		            },
 		            tooltip: {
 		            	crosshairs: true,
-		            	formatter: function() {
-		            		return "[" + this.y + "]" + '  "' + this.point.name + '"';
-						}
+		            	shared: true
+		            	//formatter: function() {
+		            	//	return 	'↑ ' + this.points[0].point.high + '<br/>● ' + this.points[1].point.y	+ '<br/>↓ ' + this.points[0].point.low;
+						//}
 		            },
 		            yAxis: {
 		                title: {
@@ -41,12 +46,17 @@
 		                verticalAlign: 'middle',
 		                borderWidth: 0
 		            },
+		            credits: {
+		                        enabled: false
+					},
 		            series: [{
-		                name: 'Ups',
-		                data: <%= @ups %>
+		                name: 'Karma',
+		                type: 'arearange',
+		                data: <%= @range %>
 		            }, {
-		                name: 'Downs',
-		                data: <%= @downs %>
+		            	name: 'Score',
+		            	data: <%= @average %>,
+		            	zIndex: 1
 		            }]
 		        });
 			});
@@ -56,8 +66,10 @@
 	</head>
 	<body>
 		<form class="custom" form action="/" method="post">
-			<div class="row">
-				<a href="/"><img src="/img/branding_text-left_big-1018.png" alt="" /></a>
+			<div class="row header">
+				<h1>
+					<a href="/"><img src="/img/branding_text-no_small-100.png"/> Redditalytics</a>
+				</h1>
 			</div>
 			<div class="row">
 				<hr>
@@ -90,9 +102,9 @@
 				</div>
 				<div class="large-3 columns">
 					<select id="type" name="type">
-						<option <%= Type.submitted %>>links</input>
+						<option <%= Type.submitted %>>posts</input>
 						<option <%= Type.comments %>>comments</input>
-						<option <%= Type.overview %>>links and comments</input>
+						<option <%= Type.overview %>>posts and comments</input>
 					</select>
 				</div>
 			</div>

@@ -31,3 +31,17 @@ input.redditor {
   height: auto;
   padding: 0.6em;
 }
+.row.header a{
+	font-family:'Conv_VAGRoundedStd-Light',Sans-Serif;
+	color:black;
+}
+.row.header h1{
+	line-height: 0;
+	margin-top: 0.2em;
+	margin-left: 0.1em;
+	font-size: 7em;
+	margin-bottom: -0.1em;
+}
+.row.header img{
+	margin-bottom: 0.2em;
+}
