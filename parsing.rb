@@ -68,11 +68,14 @@ get '/user/:user/:type/' do
 	@ups = user.results[0]
 	@downs = user.results[1]
 
-	@sort = user.sort_pretty
+	@sort_pretty = user.sort_pretty
+	@sort = user.sort
+
 	@limit = user.limit
 	@user = params[:user]
-	@type = user.type_pretty
-	@element = "div"
+
+	@type_pretty = user.type_pretty
+	@type = user.type
 
 	erb :index
 end
