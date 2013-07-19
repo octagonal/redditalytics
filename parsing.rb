@@ -22,14 +22,6 @@ get '/' do
 	erb :post
 end
 
-get '/:user' do
-	user = Redditor.new(params[:user],"new",10,"comment")
-	@ups = user.results[0]
-	@downs = user.results[1]
-	@user = params[:user]
-	erb :index
-end
-
 post '/' do
 	sort = "sort="
 	sort << params[:sort]
