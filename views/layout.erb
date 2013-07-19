@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="stylesheet" href="/css/normalize.css" />
 	  	<link rel="stylesheet" href="/css/foundation.css" />
+	  	<link rel="stylesheet" href="/css/main.css" />
 		<script src="/js/vendor/custom.modernizr.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
@@ -51,46 +52,20 @@
 			});
 		</script>
 		<style>
-			body{
-				box-sizing:border-box;
-				margin-top: 1em;
-			}
-			form.custom .custom.dropdown {
-				vertical-align: middle;
-				text-align: center;
-				height: 3.6125em;
-				padding:0.6em;
-			}
-			form.custom .custom.dropdown .selector {
-				height: 3.5125em;
-			}
-			form.custom .custom.dropdown ul li {
-				padding: 1em;
-			}
-			input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
-				padding: 1.1em;
-			}
-			textarea {
-			    resize: none;
-			}
-			.postfix {
-				padding-top: 0.6em;
-				height: 3.550em;
-				border:none;
-			}
 		</style>
 	</head>
 	<body>
-		<form class="" form action="/" method="post">
+		<form class="custom" form action="/" method="post">
 			<div class="row">
-				<img src="/img/branding_text-left_big-1018.png" alt="">
+				<a href="/"><img src="/img/branding_text-left_big-1018.png" alt="" /></a>
 			</div>
 			<div class="row">
 				<hr>
 				<div class="large-3 columns">
 					<div class="row collapse">
 						<div class="small-9 columns">
-							<textarea placeholder="redditor" name="user"><%= @user %></textarea>
+							<!--<textarea placeholder="redditor" name="user"><%= @user %></textarea>-->
+							<input type="text" placeholder="redditor" name="user" class="redditor"></input>
 						</div>
 						<div class="small-3 columns">
 							<span class="postfix radius">'s</span>

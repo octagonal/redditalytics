@@ -1,0 +1,33 @@
+body{
+	box-sizing:border-box;
+	margin-top: 1em;
+}
+form.custom .custom.dropdown {
+	vertical-align: middle;
+	text-align: center;
+	height: 3.6125em;
+	padding:0.6em;
+}
+form.custom .custom.dropdown .selector {
+	height: 3.5125em;
+}
+form.custom .custom.dropdown ul li {
+	padding: 1em;
+}
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+	padding: 1.1em;
+}
+textarea {
+    resize: none;
+}
+.postfix {
+	padding-top: 0.6em;
+	height: 3.550em;
+	border:none;
+}
+input.redditor {
+  vertical-align: middle;
+  min-height: 50px;
+  height: auto;
+  padding: 0.6em;
+}
